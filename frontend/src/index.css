@@ -1,0 +1,173 @@
+@import url('./styles/fonts.css');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'HvDTrial BrixSans Medium';
+  font-weight: 600;
+}
+
+@keyframes writeText {
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.animate-writeText {
+  display: inline-block;
+  animation: writeText 4s steps(40, end) forwards, cursorBlink 0.75s step-end infinite;
+  animation-delay: 0s, 5s;
+  animation-iteration-count: infinite;
+  border-right: 2px solid #EAEDFF; /* Cursor effect */
+}
+
+@keyframes cursorBlink {
+  50% {
+    border-color: transparent;
+  }
+}
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.step-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+
+.stylish-button {
+  position: relative;
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgb(4, 1, 1);
+  background-color: white;
+  border: 2px solid #ff3368;
+  cursor: pointer;
+  overflow: hidden;
+  transition: color 0.6s ease-in-out, background-color 0.6s ease-in-out;
+}
+
+.stylish-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ff3368;
+  z-index: 0;
+  transition: transform 0.6s ease-in-out;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.stylish-button:hover::before {
+  transform: scaleX(1);
+}
+
+.stylish-button:hover {
+  color: white;
+}
+
+.stylish-button span {
+  position: relative;
+  z-index: 1;
+}
+
+/* Find Jobs Button */
+
+.stylish-button1 {
+  position: relative;
+  display: block;
+  width: 80%;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #000; /* Set initial font color to black */
+  background-color: white;
+  border: 2px solid #2C3E50;
+  cursor: pointer;
+  overflow: hidden;
+  transition: color 0.6s ease-in-out, background-color 0.6s ease-in-out;
+  z-index: 0;
+}
+
+.stylish-button1::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #2C3E50;
+  color: white; 
+  z-index: 0;
+  transition: transform 0.6s ease-in-out;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.stylish-button1:hover::before {
+  transform: scaleX(1);
+
+}
+
+.stylish-button1:hover {
+  color: white; /* Change font color to white on hover */
+}
+
+.stylish-button1 span {
+  position: relative;
+  z-index: 1;
+}
+
+
+.apply-process-area {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.single-process {
+  padding: 44px 28px;
+  background: #26317f;
+  transition: transform 650ms ease-in-out;
+}
+
+.single-process:hover .process-ion {
+  transform-style: preserve-3d;
+  transform: rotateY(-180deg);
+}
+
+.process-ion span {
+  font-size: 60px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.process-cap h5 {
+  font-weight: 700;
+  font-size: 24px;
+  color: #fff;
+  line-height: 1.4;
+  margin-bottom: 20px;
+}
+
+.process-cap p {
+  color: #a5aaca;
+}
+
+.apply-bg {
+  background-size: cover;
+  background-repeat: no-repeat;
+}

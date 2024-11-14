@@ -1,0 +1,229 @@
+/* ---------- General Styles -------- */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #f4f4f4;
+}
+
+/* ---------- Dashboard Container -------- */
+.dashboard-container {
+  display: flex;
+  height: 100vh; /* Full height of the viewport */
+}
+
+/* ---------- Sidebar Styles -------- */
+.dashboard-sidebar {
+  width: 250px;
+  background-color: #2c3e50;
+  color: white;
+  padding: 10px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-sidebar h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.dashboard-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.dashboard-sidebar ul li {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dashboard-sidebar ul li:hover,
+.dashboard-sidebar ul li.active {
+  background-color: #34495e;
+}
+
+/* ---------- Content Area Styles -------- */
+.dashboard-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto; /* Allow scrolling if content overflows */
+}
+
+/* ---------- Section Styles -------- */
+.profile-section,
+.responses-section,
+.job-listings-section {
+  background-color: #ecf0f1;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px; /* Space between sections */
+}
+
+.profile-section h2,
+.responses-section h2,
+.job-listings-section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* ---------- Form Group Styles -------- */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.form-group textarea {
+  resize: vertical;
+  height: 100px;
+}
+
+/* ---------- Button Styles -------- */
+.btn {
+  background-color: #2c3e50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: block;
+  width: 100%;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.btn:hover {
+  background-color: #34495e;
+}
+
+/* ---------- Responses List Styles -------- */
+.responses-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* ---------- Response Card Styles -------- */
+.response-card {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.response-card:hover {
+  transform: translateY(-5px);
+}
+
+.response-info {
+  flex: 1;
+}
+
+.response-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.response-card h3 {
+  margin-top: 0;
+  font-size: 20px;
+  color: #2c3e50;
+}
+
+.response-card p {
+  margin: 5px 0;
+  color: #34495e;
+}
+
+.job-listing-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+
+.job-info {
+  flex: 1;
+}
+
+.job-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.job-actions button {
+  background-color: #ef0a0a;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.job-actions button:hover {
+  background-color: #34495e;
+}
+
+/* ---------- Media Queries -------- */
+@media (max-width: 870px) {
+  .dashboard-container {
+    display: flex;
+    flex-direction: column; /* Stack sidebar and content on smaller screens */
+    max-height: 100vh; /* Limit height to viewport height */
+    overflow-y: auto; /* Enable vertical scroll for the whole container */
+  }
+
+  .dashboard-sidebar {
+    width: 100%; /* Full width for sidebar */
+    max-height: 40vh; /* Limit sidebar height to half viewport height on mobile */
+    overflow-y: auto; /* Enable vertical scroll within the sidebar */
+    box-shadow: none; /* Remove shadow for mobile */
+  }
+
+  .dashboard-content {
+    flex-grow: 1;
+    overflow-y: auto; /* Enable scroll within content area as well if needed */
+  }
+
+
+  .profile-section,
+  .responses-section,
+  .job-listings-section {
+      margin-bottom: 15px; /* Reduce margin for mobile */
+  }
+}
+
+@media (max-width: 570px) {
+  .response-card {
+      flex-direction: column; /* Stack response info and actions on smaller screens */
+  }
+
+  .response-actions {
+      flex-direction: row; /* Align actions horizontally on smaller screens */
+      gap: 20px;
+  }
+}
