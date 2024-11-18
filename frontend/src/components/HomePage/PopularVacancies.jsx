@@ -1,9 +1,9 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserMd, faTooth, faLaptopCode, faBrain, faChartLine, faDatabase, faMoneyCheckAlt, faNetworkWired, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faUserMd, faTooth, faLaptopCode, faDatabase, faMoneyCheckAlt, faNetworkWired, faSearch } from '@fortawesome/free-solid-svg-icons';
 
-function PopularVacancies() {
-  return (
+function PopularVacancies(){
+  return(
     <section className="py-12">
       <div className="container mx-auto text-center">
         <h2 className="text-3xl font-bold text-center mb-8">Most Popular Vacancies</h2>
@@ -94,7 +94,6 @@ function PopularVacancies() {
             </div>
           </div>
 
-          {/* Add more Vacancy cards here */}
         </div>
       </div>
     </section>

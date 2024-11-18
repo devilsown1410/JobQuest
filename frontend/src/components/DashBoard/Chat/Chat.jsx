@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 
 const socket = io('http://localhost:3000');
 
-const Chat = ({ room, userId, recruiterUsername }) => {
+const Chat =({ room, userId, recruiterUsername })=>{
   const recruiter = recruiterUsername;
   const user = JSON.parse(localStorage.getItem('user'));
   const username = user.username;
@@ -11,39 +11,35 @@ const Chat = ({ room, userId, recruiterUsername }) => {
   const [messages, setMessages] = useState([]);
   const messagesEndRef = useRef(null);
 
-  useEffect(() => {
+  useEffect(()=>{
     socket.emit('joinRoom', room);
-
-    const handleMessage = (data) => {
+    const handleMessage =(data)=>{
       setMessages((prevMessages) => [...prevMessages, data]);
     };
-
-    const handlePreviousMessages = (previousMessages) => {
+    const handlePreviousMessages =(previousMessages)=>{
       setMessages(previousMessages);
     };
-
     socket.on('message', handleMessage);
     socket.on('previousMessages', handlePreviousMessages);
-
-    return () => {
+    return ()=>{
       socket.off('message', handleMessage);
       socket.off('previousMessages', handlePreviousMessages);
     };
   }, [room]);
 
-  useEffect(() => {
+  useEffect(()=>{
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  const sendMessage = () => {
-    if (message.trim()) {
+  const sendMessage =()=>{
+    if(message.trim()){
       const data = { room, message, senderId: userId, username, timestamp: new Date() };
       socket.emit('message', data);
       setMessage('');
     }
   };
 
-  return (
+  return(
     <div className="h-screen bg-gray-100 flex justify-center items-center">
       <div className="w-full max-w-md h-96 bg-white rounded-lg shadow-lg flex flex-col">
         <nav className="flex justify-between items-center bg-blue-600 text-white p-3 rounded-t-lg">
@@ -53,7 +49,7 @@ const Chat = ({ room, userId, recruiterUsername }) => {
           </div>
         </nav>
         <div className="flex-1 overflow-auto p-4">
-          {messages.map((msg, index) => (
+          {messages.map((msg, index)=>(
             <div key={index} className={`my-2 p-3 rounded-lg ${msg.senderId === userId ? 'bg-blue-100 self-end' : 'bg-gray-200 self-start'}`}>
               <strong className={`block ${msg.senderId === userId ? 'text-blue-600' : 'text-gray-800'}`}>
                 {msg.senderId === userId ? 'You' : recruiter}:

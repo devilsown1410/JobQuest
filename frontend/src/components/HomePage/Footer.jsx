@@ -1,14 +1,15 @@
 import React from 'react';
 
-function Footer() {
-  return (
+function Footer(){
+  return(
     <footer className="bg-gray-800 py-4 text-gray-300">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+
         {/* About Section */}
         <div>
-          <h3 className="text-xl font-bold text-white mb-4">About MyJob Portal</h3>
+          <h3 className="text-xl font-bold text-white mb-4">About JobQuest</h3>
           <p className="text-gray-400">
-            MyJob Portal is your go-to platform for finding the best job opportunities and connecting with top companies worldwide.
+            JobQuest is your go-to platform for finding the best job opportunities and connecting with top companies worldwide.
           </p>
         </div>
 

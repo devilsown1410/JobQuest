@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import axios from '../../../utils/axios'; // Corrected import path
+import axios from '../../../utils/axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SuccessModal from '../../HomePage/SuccessModal';
+import Spinner from '../../Loader/loader';
 
-function JobPost() {
+function JobPost(){
   const [jobDetails, setJobDetails] = useState({
     title: '',
     companyName: '',
@@ -15,7 +16,8 @@ function JobPost() {
     userId: JSON.parse(localStorage.getItem('user'))._id,
   });
 
-  const [showModal, setShowModal] = useState(false);  // Track modal visibility
+  const[showModal,setShowModal] = useState(false);
+  const[loading,setLoading] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -24,10 +26,11 @@ function JobPost() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
-      const response = await axios.post('http://localhost:3000/api/recruiter/jobs', jobDetails);
+      await axios.post('http://localhost:3000/api/recruiter/jobs',jobDetails);
       toast.success('Job posted successfully!');
-      setShowModal(true);  // Show modal on successful job post
+      setShowModal(true);
       setJobDetails({
         title: '',
         companyName: '',
@@ -36,17 +39,23 @@ function JobPost() {
         experience: '',
         typeOfEmployment: '',
       });
-    } catch (error) {
+    }catch(error){
       console.error('Error posting job:', error);
       toast.error('Failed to post job');
+    }
+    finally{
+      setLoading(false);
     }
   };
 
   const handleCloseModal = () => {
-    setShowModal(false);  // Close the modal when the user clicks 'Close'
+    setShowModal(false);
   };
+  if(loading){
+    return <Spinner />;
+  }
 
-  return (
+  return(
     <div className="job-post-container">
       <h2>Post a Job</h2>
       <form onSubmit={handleSubmit}>

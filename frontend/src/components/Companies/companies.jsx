@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { companies } from '../../data'; // Adjust the import path as necessary
+import { companies } from '../../data';
+import Spinner from '../Loader/loader';
 
 const Companies = () => {
   const [companyList, setCompanyList] = useState([]);
@@ -8,23 +9,23 @@ const Companies = () => {
 
   useEffect(() => {
     const fetchCompanies = async () => {
-      try {
-        // Simulate an API call with a delay
+      setLoading(true);
+      try{
         await new Promise((resolve) => setTimeout(resolve, 1000));
         setCompanyList(companies);
-        setLoading(false);
-      } catch (error) {
+      }catch(error){
         console.error('Error fetching companies:', error);
         setError(error.message);
+      }
+      finally{
         setLoading(false);
       }
     };
-
     fetchCompanies();
   }, []);
 
   if (loading) {
-    return <div className="text-center text-xl">Loading...</div>;
+    return <Spinner />;
   }
 
   if (error) {

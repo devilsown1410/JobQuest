@@ -10,7 +10,6 @@ import ClientTestimonials from './components/HomePage/ClientTestimonials';
 import Footer from './components/HomePage/Footer';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginRegister from './components/HomePage/loginregister';
-import { AuthProvider } from './context/AuthContext.jsx';
 import { LoadingProvider } from './context/LoadingContext.jsx';
 import RequireAuth from './components/Job/RequireAuth.jsx'
 import JobPost from './components/DashBoard/Recruiter/postjob.jsx';
@@ -29,10 +28,8 @@ import Spinner from './components/Loader/loader.jsx';
 function App() {
   const token=localStorage.getItem('token')
   return (
-    <AuthProvider>
       <LoadingProvider>
       <Router>
-        {/* <Spinner /> */}
         <Routes>
           <Route path="/" element={
             <>
@@ -66,7 +63,6 @@ function App() {
               <JobPost />
             </RequireAuth>
             } />
-           {/* <Route path="/dashboard" element={<JobseekerDashboard />} /> */}
            <Route path="/apply/:jobId" element={<ApplyForm />} />
           <Route path="/applications" element={<ApplicationTracking />} />
           <Route path="/find-jobs" element={
@@ -93,10 +89,10 @@ function App() {
             <Footer />
             </>
             }/>
+            <Route path='/loader' element={<Spinner />} />
         </Routes>
         </Router>
         </LoadingProvider>
-    </AuthProvider>
    
   );
 }

@@ -8,7 +8,7 @@ body {
 /* ---------- Dashboard Container -------- */
 .dashboard-container {
   display: flex;
-  height: 100vh; /* Full height of the viewport */
+  height: 100vh;
 }
 
 /* ---------- Sidebar Styles -------- */
@@ -45,7 +45,7 @@ body {
 .dashboard-content {
   flex: 1;
   padding: 20px;
-  overflow-y: auto; /* Allow scrolling if content overflows */
+  overflow-y: auto; 
 }
 
 /* ---------- Section Styles -------- */
@@ -56,7 +56,7 @@ body {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px; /* Space between sections */
+  margin-bottom: 20px;
 }
 
 .profile-section h2,

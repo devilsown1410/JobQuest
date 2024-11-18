@@ -18,58 +18,58 @@ import ImgUser  from "../../images/LoginRegister/user.png";
 import ImgUsers from "../../images/LoginRegister/users.png";
 import ImgEye from "../../images/LoginRegister/eye.png";
 
-const initialState = {
+const initialState ={
   isPasswordShown: false,
   isEyeImage: true,
   password: '',
   username: '',
   email: '',
   userType: 'jobSeeker', // Default user type
-  errors: {},
+  errors:{},
 };
 
-const LoginRegister = () => {
+const LoginRegister = ()=>{
   const [state, setState] = useState({ ...initialState, isActive: true });
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
   const navigate = useNavigate();
 
-  const changeSignInForm = () => {
+  const changeSignInForm = () =>{
     setState({ ...initialState, isActive: false, errors: {} });
   };
 
-  const changeSignUpForm = () => {
+  const changeSignUpForm = () =>{
     setState({ ...initialState, isActive: true, errors: {} });
   };
 
-  const PasswordVisibility = () => {
+  const PasswordVisibility = () =>{
     setState({ ...state, isPasswordShown: true, isEyeImage: false });
   };
 
-  const PasswordNotVisibility = () => {
+  const PasswordNotVisibility = () =>{
     setState({ ...state, isPasswordShown: false, isEyeImage: true });
   };
 
-  const onChange = (event) => {
+  const onChange = (event) =>{
     const { name, value } = event.target;
     setState({ ...state, [name]: value });
   };
 
-  const validateForm = () => {
+  const validateForm = () =>{
     const { username, email, password } = state;
     const errors = {};
 
-    if (state.isActive && !username) {
+    if(state.isActive && !username){
       errors.username = 'Username is required';
     }
 
-    if (!email) {
+    if (!email){
       errors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
+    } else if(!/\S+@\S+\.\S+/.test(email)){
       errors.email = 'Email address is invalid';
     }
 
-    if (!password) {
+    if(!password){
       errors.password = 'Password is required';
     } else if (password.length < 6) {
       errors.password = 'Password must be at least 6 characters';
@@ -79,14 +79,14 @@ const LoginRegister = () => {
     return Object.keys(errors).length === 0;
   };
 
-  const handleRegister = async (event) => {
+  const handleRegister = async(event) =>{
     event.preventDefault();
-    if (!validateForm()) {
+    if(!validateForm()){
       return;
     }
     const { username, email, password, userType } = state;
-    try {
-      const response = await axios.post('http://localhost:3000/api/auth/register', { username, email, password, userType });
+    try{
+      const response = await axios.post('http://localhost:3000/api/auth/register',{ username, email, password, userType});
       const { token } = response.data;
       localStorage.setItem('token', token);
       localStorage.setItem('email', email);
@@ -94,9 +94,9 @@ const LoginRegister = () => {
       setShowModal(true);
       setTimeout(() => {
         setShowModal(false);
-        navigate('/dashboard')}, 1000);
+        navigate('/dashboard')},1000);
       navigate('/dashboard');
-    } catch (error) {
+    } catch(error){
       if (error.response && error.response.status === 400) {
         toast.error('User  already exists. Please login.');
       } else {
@@ -105,12 +105,12 @@ const LoginRegister = () => {
     }
   };
 
-  const handleLogin = async (event) => {
+  const handleLogin = async (event)=>{
     event.preventDefault();
     const { email, password, userType } = state;
-    try {
+    try{
       const endpoint = userType === 'Admin' ? 'http://localhost:3000/api/admin/login' : 'http://localhost:3000/api/auth/login';
-      const response = await axios.post(endpoint, { email, password });
+      const response = await axios.post(endpoint,{ email, password });
       const { token, user } = response.data;
       localStorage.setItem(userType === 'Admin' ? 'adminToken' : 'token', token);
       localStorage.setItem('email', email);
@@ -120,19 +120,16 @@ const LoginRegister = () => {
       setTimeout(() => {
         setShowModal(false);
         navigate(userType === 'Admin' ? '/admin' : '/dashboard')}, 1000);
-
-      // navigate(userType === 'Admin' ? '/admin' : '/dashboard'); // Redirect to Admin Panel or Jobseeker Dashboard
-    } catch (error) {
+    } catch(error){
       console.error('Login failed', error);
       toast.error('Login failed. Please check your credentials and try again.');
     }
   };
 
-  const closeModal = () => {
+  const closeModal = ()=>{
     setShowModal(false);
     setModalMessage('');
   };
-
   const { errors } = state;
 
   return (

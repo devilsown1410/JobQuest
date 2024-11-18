@@ -16,7 +16,7 @@ const responseSchema = new mongoose.Schema({
   },
   resumeId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Resume', // Reference to the resumes collection
+    ref: 'Resume',
     required: true,
   },
   candidateName: {

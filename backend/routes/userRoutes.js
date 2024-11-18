@@ -7,6 +7,7 @@ import { getJobs, savedJobs,editJob, getJob } from '../controllers/jobController
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
+// user routes
 router.post('/', getUser);
 router.put('/', updateUser);
 router.post('/save', saveJob);
@@ -19,6 +20,7 @@ router.get('/applications', getApplications);
 router.get('/notifications', getNotifications);
 router.put('/notifications/read', markNotificationsAsRead);
 
+// Fetch recruiters and jobseekers
 router.get('/recruiters', getRecruiters);
 router.get('/jobSeekers', getJobSeekers);
 

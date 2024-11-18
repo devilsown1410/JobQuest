@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import SuccessModal from '../HomePage/SuccessModal';
+import Spinner from '../Loader/loader';
 
 const EditJob = () => {
   const { jobId } = useParams();
@@ -22,16 +23,17 @@ const EditJob = () => {
   const [successModalOpen, setSuccessModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  useEffect(() => {
-    const fetchJobDetails = async () => {
-      try {
+  useEffect(() =>{
+    const fetchJobDetails = async ()=>{
+      setLoading(true);
+      try{
         const response = await fetch(`http://localhost:3000/api/user/jobs/${jobId}`);
-        if (!response.ok) {
+        if(!response.ok){
           throw new Error(`Error fetching job details: ${response.statusText}`);
         }
         const data = await response.json();
         setJobDetails(data.job);
-      } catch (error) {
+      } catch(error){
         console.error('Error fetching job details:', error);
         setError(error.message);
       } finally {
@@ -42,7 +44,7 @@ const EditJob = () => {
     fetchJobDetails();
   }, [jobId]);
 
-  const handleChange = (e) => {
+  const handleChange = (e)=>{
     const { name, value } = e.target;
     if (name.startsWith('company.')) {
       const companyField = name.split('.')[1];
@@ -54,19 +56,19 @@ const EditJob = () => {
         },
       }));
     } else {
-      setJobDetails((prevDetails) => ({
+      setJobDetails((prevDetails)=>({
         ...prevDetails,
         [name]: value,
       }));
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e)=>{
     e.preventDefault();
+    setLoading(true);
     setIsSubmitting(true);
-    setError(null); // Reset error state before submission
-
-    try {
+    setError(null);
+    try{
       const response = await fetch(`http://localhost:3000/api/user/jobs/editjob/${jobId}`, {
         method: 'PUT',
         headers: {
@@ -74,34 +76,31 @@ const EditJob = () => {
         },
         body: JSON.stringify(jobDetails),
       });
-
-      if (!response.ok) {
+      if(!response.ok){
         throw new Error(`Error updating job: ${response.statusText}`);
       }
-
-      toast.success('Job updated successfully!'); // Show success toast
-      setSuccessModalOpen(true); // Open success modal after success
+      toast.success('Job updated successfully!');
+      setSuccessModalOpen(true); 
       setTimeout(() => {
-        setSuccessModalOpen(false); // Close modal after a delay
-        navigate('/recruiter-dashboard'); // Redirect after the modal closes
-      }, 2000); // Delay for 2 seconds to show success message
-    } catch (error) {
+        setSuccessModalOpen(false);
+        navigate('/recruiter-dashboard');
+      },2000);
+    } catch(error){
       console.error('Error updating job:', error);
-      toast.error(error.message); // Show error toast
-    } finally {
-      setIsSubmitting(false); // Reset submitting state
+      toast.error(error.message);
+    } finally{
+      setIsSubmitting(false);
     }
   };
 
-  if (loading) {
-    return <div className="text-center">Loading...</div>;
+  if(loading){
+    return <Spinner />;
   }
-
-  if (error) {
+  if(error){
     return <div className="text-red-500 text-center">Error: {error}</div>;
   }
 
-  return (
+  return(
     <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
       <h1 className="text-2xl font-bold mb-4">Edit Job</h1>
       <form onSubmit={handleSubmit}>

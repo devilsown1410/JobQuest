@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 const axios = Axios.create({
-  baseURL: "https://your-mock-api.com/login",
+  baseURL: "https://JobQuest/login",
 });
 
 export default axios;

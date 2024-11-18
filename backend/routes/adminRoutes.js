@@ -17,7 +17,7 @@ import {
 const router = express.Router();
 
 router.post('/login', adminLogin);
-router.use(verifyAdminToken); // Protect all routes below this line
+router.use(verifyAdminToken);
 
 router.get('/users', getUsers);
 router.put('/users/:userId/verify', verifyUser);

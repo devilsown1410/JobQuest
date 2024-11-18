@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const AdminPanel = () => {
+const AdminPanel =()=>{
   const [activeSection, setActiveSection] = useState('users');
   const [users, setUsers] = useState([]);
   const [companies, setCompanies] = useState([]);
@@ -15,7 +15,7 @@ const AdminPanel = () => {
   useEffect(() => {
     const token = localStorage.getItem('adminToken');
     if (!token) {
-      navigate('/login'); // Redirect to login if not authenticated
+      navigate('/login');
     } else {
       fetchUsers();
       fetchCompanies();
@@ -23,54 +23,54 @@ const AdminPanel = () => {
     }
   }, [navigate]);
 
-  const fetchUsers = async () => {
-    try {
+  const fetchUsers = async ()=>{
+    try{
       const response = await axios.get('http://localhost:3000/api/admin/users', {
         headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` },
       });
       setUsers(response.data);
-    } catch (error) {
+    }catch (error){
       console.error('Error fetching users:', error);
     }
   };
 
-  const fetchCompanies = async () => {
-    try {
+  const fetchCompanies = async ()=>{
+    try{
       const response = await axios.get('http://localhost:3000/api/admin/companies', {
         headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` },
       });
       setCompanies(response.data);
-    } catch (error) {
+    }catch (error){
       console.error('Error fetching companies:', error);
     }
   };
 
-  const fetchJobs = async () => {
-    try {
-      const response = await axios.get('http://localhost:3000/api/admin/jobs', {
+  const fetchJobs = async()=>{
+    try{
+      const response = await axios.get('http://localhost:3000/api/admin/jobs',{
         headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` },
       });
       setJobs(response.data);
-    } catch (error) {
+    }catch(error){
       console.error('Error fetching jobs:', error);
     }
   };
 
-  const handleConfirmAction = async () => {
+  const handleConfirmAction = async ()=>{
     const { action, id } = confirmationModal;
 
-    try {
+    try{
       let response;
-      switch (action) {
+      switch(action){
         case 'verifyUser ':
-          response = await axios.put(`http://localhost:3000/api/admin/users/${id}/verify`, {}, {
+          response = await axios.put(`http://localhost:3000/api/admin/users/${id}/verify`, {},{
             headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` },
           });
           toast.success('User  verified successfully');
           fetchUsers();
           break;
         case 'blockUser ':
-          response = await axios.put(`http://localhost:3000/api/admin/users/${id}/block`, { block: confirmationModal.block }, {
+          response = await axios.put(`http://localhost:3000/api/admin/users/${id}/block`,{ block: confirmationModal.block }, {
             headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` },
           });
           toast.success(`User  ${confirmationModal.block ? 'blocked' : 'unblocked'} successfully`);
@@ -114,25 +114,25 @@ const AdminPanel = () => {
         default:
           break;
       }
-    } catch (error) {
+    }catch(error){
       toast.error('Error performing action');
       console.error('Error performing action:', error);
-    } finally {
+    }finally{
       setConfirmationModal({ isOpen: false, action: null, id: null });
     }
   };
 
-  const openConfirmationModal = (action, id, block = null) => {
+  const openConfirmationModal = (action, id, block = null)=>{
     setConfirmationModal({ isOpen: true, action, id, block });
   };
 
-  const renderSection = () => {
-    switch (activeSection) {
+  const renderSection = ()=>{
+    switch (activeSection){
       case 'users':
-        return (
+        return(
           <section className="bg-gray-100 p-5 rounded-lg shadow-md">
             <h2 className="text-center mb-5">Users</h2>
-            {users.length === 0 ? (
+            {users.length === 0 ?(
               <p>No new Users found.</p>
             ) : (
               <ul>
@@ -153,14 +153,14 @@ const AdminPanel = () => {
           </section>
         );
       case 'companies':
-        return (
+        return(
           <section className="bg-gray-100 p-5 rounded-lg shadow-md">
             <h2 className="text-center mb-5">Companies</h2>
             {companies.length === 0 ? (
               <p>No companies found.</p>
-            ) : (
+            ):(
               <ul>
-                {companies.map((company) => (
+                {companies.map((company)=>(
                   <li key={company._id} className="bg-white p-5 rounded-lg shadow-md mb-5">
                     <p><strong>Company Name:</strong> {company.company}</p>
                     <p><strong>Email:</strong> {company.email}</p>
@@ -178,9 +178,9 @@ const AdminPanel = () => {
         return (
           <section className="bg-gray-100 p-5 rounded-lg shadow-md">
             <h2 className="text-center mb-5">Job Listings</h2>
-            {jobs.length === 0 ? (
+            {jobs.length === 0 ?(
               <p>No job listings found.</p>
-            ) : (
+            ):(
               <ul>
                 {jobs.map((job) => (
                   <li key={job._id} className="bg-white p-5 rounded-lg shadow-md mb-5 flex justify-between items-center">

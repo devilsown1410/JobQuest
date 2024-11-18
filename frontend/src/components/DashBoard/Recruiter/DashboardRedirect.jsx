@@ -1,23 +1,20 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const DashboardRedirect = () => {
+const DashboardRedirect = ()=>{
   const navigate = useNavigate();
-
-  useEffect(() => {
+  useEffect(()=>{
     const user = JSON.parse(localStorage.getItem('user'));
-    if (user) {
-      if (user.userType === 'recruiter') {
+    if(user){
+      if(user.userType === 'recruiter'){
         navigate('/recruiter-dashboard');
-      } else {
+      }else{
         navigate('/jobseeker-dashboard');
       }
-    } else {
+    }else{
       navigate('/login');
     }
-  }, [navigate]);
-
-  return null;
+  },[navigate]);
 };
 
 export default DashboardRedirect;

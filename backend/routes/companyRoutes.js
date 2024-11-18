@@ -1,6 +1,5 @@
 import express, { Router } from 'express';
 import { getCompanies } from '../controllers/companyController.js';
-
 const router = express.Router();
 
 router.get('/', getCompanies);

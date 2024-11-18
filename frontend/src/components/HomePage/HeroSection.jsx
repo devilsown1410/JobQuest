@@ -1,8 +1,8 @@
 import React from 'react';
 import heroImage from '../../images/h1_hero.jpg';
 
-function HeroSection() {
-  return (
+function HeroSection(){
+  return(
     <section
       className="bg-cover bg-center h-screen flex items-center"
       style={{ backgroundImage: `url(${heroImage})`, backgroundPosition: 'center bottom' }}

@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../../../utils/axios';
 import '../../../styles/JobseekerDashboard.css'
+import Spinner from '../../Loader/loader';
 import { useNavigate } from 'react-router-dom';
 import Chat from '../Chat/Chat';
-// import io from 'socket.io-client';
-// import Notify from './notify';
 
-// const socket=io('http://localhost:3000')
-
-const JobseekerDashboard = () => {
+const JobseekerDashboard = ()=>{
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -32,8 +29,9 @@ const JobseekerDashboard = () => {
   const [selectedRecruiter, setSelectedRecruiter] = useState(null);
   const [activeChats, setActiveChats] = useState([]);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
+  useEffect(()=>{
+    const fetchUserData = async ()=>{
+      setLoading(true);
       try {
         const token = localStorage.getItem('token');
         const email = localStorage.getItem('email');
@@ -41,7 +39,6 @@ const JobseekerDashboard = () => {
           headers: { Authorization: `Bearer ${token}` }
         });
         setUser(response.data.user);
-        // setSavedJobs(response.data.user.savedJobs || []);
         setProfileDetails({
           username: response.data.user.username,
           email: response.data.user.email,
@@ -62,37 +59,47 @@ const JobseekerDashboard = () => {
     fetchUserData();
   }, []);
 
-  useEffect(() => {
-    if (user) {
-      const fetchApplications = async () => {
-        try {
+  useEffect(()=>{
+    if (user){
+      const fetchApplications = async ()=>{
+        setLoading(true);
+        try{
           const response = await axios.get(`http://localhost:3000/api/user/applications?userId=${user._id}`);
-          console.log('Applications fetched:', response.data); // Debugging log
           setApplications(response.data);
-        } catch (error) {
+        }catch(error){
           console.error('Error fetching applications:', error);
+        }
+        finally{
+          setLoading(false);
         }
       };
 
-      const fetchNotifications = async () => {
-        try {
+      const fetchNotifications = async ()=>{
+        setLoading(true);
+        try{
           const response = await axios.get(`http://localhost:3000/api/user/notifications?userId=${user._id}`);
-          console.log('Notifications fetched:', response.data); // Debugging log
-          const unreadNotifications = response.data.filter(notification => !notification.read).slice(0, 10);
+          console.log('Notifications fetched:', response.data);
+          const unreadNotifications = response.data.filter(notification => !notification.read).slice(0, 10); //Only 10 at a time
           setNotifications(unreadNotifications);
           setUnreadCount(unreadNotifications.length);
-        } catch (error) {
+        } catch(error){
           console.error('Error fetching notifications:', error);
+        }
+        finally{
+          setLoading(false);
         }
       };
-      const fetchSavedJobs = async () => {
-        try {
+      const fetchSavedJobs = async ()=>{
+        setLoading(true);
+        try{
           const response = await axios.get(`http://localhost:3000/api/user/jobs/saved?userId=${user._id}`);
-          console.log('Saved Jobs fetched:', response.data); // Debugging log
           setSavedJobs(response.data.savedJobs);
-        } catch (error) {
+        }catch(error){
           console.error('Error fetching notifications:', error);
         }
+        finally{
+          setLoading(false);
+          }
       };
 
       fetchSavedJobs();
@@ -102,36 +109,40 @@ const JobseekerDashboard = () => {
   }, [user]);
 
   useEffect(() => {
-    const fetchRecruiters = async () => {
-      try {
+    const fetchRecruiters = async ()=>{
+      setLoading(true);
+      try{
         const response = await axios.get('http://localhost:3000/api/user/recruiters');
         setRecruiters(response.data);
-      } catch (error) {
+      }catch(error){
         console.error('Error fetching recruiters:', error);
       }
+      finally{
+        setLoading(false);
+      }
     };
-
     fetchRecruiters();
   }, []);
 
-  const generateRoomId = (userId1, userId2) => {
+  const generateRoomId = (userId1,userId2)=>{
     return [userId1, userId2].sort().join('-');
   };
-  const handleSelectRecruiter = (recruiter) => {
+  const handleSelectRecruiter =(recruiter)=>{
     setSelectedRecruiter(recruiter);
     const roomId = generateRoomId(user._id, recruiter._id);
     if (!activeChats.some(chat => chat.room === roomId)) {
       setActiveChats([...activeChats, { room: roomId, recruiter }]);
     }
   };
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  const handleInputChange =(e)=>{
+    const { name,value } = e.target;
     setProfileDetails({ ...profileDetails, [name]: value });
   };
 
-  const handleProfileSubmit = async (e) => {
+  const handleProfileSubmit = async(e)=>{
     e.preventDefault();
-    try {
+    setLoading(true);
+    try{
       const token = localStorage.getItem('token');
       const response = await axios.put('http://localhost:3000/api/user', profileDetails, {
         headers: { Authorization: `Bearer ${token}` }
@@ -139,32 +150,35 @@ const JobseekerDashboard = () => {
       setUser(response.data.user);
       setIsEditing(false);
       alert('Profile updated successfully');
-    } catch (error) {
+    }catch(error){
       console.error('Error updating profile:', error);
       alert('Failed to update profile');
     }
+    finally{
+      setLoading(false);
+    }
   };
 
-  const markNotificationsAsRead = async () => {
-    try {
+  const markNotificationsAsRead = async()=>{
+    try{
       const token = localStorage.getItem('token');
-      await axios.put('http://localhost:3000/api/user/notifications/read', { userId: user._id }, {
+      await axios.put('http://localhost:3000/api/user/notifications/read',{ userId: user._id }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setUnreadCount(0);
       setNotifications(notifications.map(notification => ({ ...notification, read: true })));
-    } catch (error) {
+    }catch(error){
       console.error('Error marking notifications as read:', error);
     }
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
+  if(loading){
+    return <Spinner />;
   }
 
-  const renderProfileSection = () => {
-    if (isEditing) {
-      return (
+  const renderProfileSection = ()=>{
+    if(isEditing){
+      return(
         <section className="profile-section">
           <h2>Edit Profile</h2>
           <form onSubmit={handleProfileSubmit}>
@@ -245,8 +259,8 @@ const JobseekerDashboard = () => {
           </form>
         </section>
       );
-    } else {
-      return (
+    }else{
+      return(
         <section className="profile-section">
           <h2>Profile Information</h2>
           <p><strong>Username:</strong> {user?.username}</p>
@@ -263,7 +277,7 @@ const JobseekerDashboard = () => {
     }
   };
 
-  const renderSection = () => {
+  const renderSection = ()=>{
     switch (activeSection) {
       case 'profile':
         return renderProfileSection();
@@ -272,7 +286,7 @@ const JobseekerDashboard = () => {
             <section className="applied-jobs-section">
               <h2>My Applications</h2>
               <div>
-                {applications.length > 0 ? ( // Change this condition
+                {applications.length > 0 ?(
                   applications.map((app) => (
                     <div key={app._id} className="p-4 border rounded mb-4">
                       <h2 className="text-xl font-semibold">{app.title}</h2>
@@ -280,7 +294,7 @@ const JobseekerDashboard = () => {
                       <p>Applied on: {new Date(app.appliedAt).toLocaleDateString()}</p>
                     </div>
                   ))
-                ) : (
+                ):(
                   <p>No applications found.</p>
                 )}
               </div>
@@ -288,19 +302,19 @@ const JobseekerDashboard = () => {
           );
       
       case 'notifications':
-          return (
+          return(
             <section className="notifications-section">
               <h2>Notifications</h2>
               <button className="btn" onClick={markNotificationsAsRead}>Mark All as Read</button>
               <div>
-                {notifications.length > 0 ? ( // Ensure this condition is correct
-                  notifications.map((notification) => (
+                {notifications.length > 0 ?(
+                  notifications.map((notification)=>(
                     <div key={notification._id} className={`p-4 border rounded mb-4 ${notification.read ? 'read' : 'unread'}`}>
                       <p>{notification.message}</p>
                       <p><small>{new Date(notification.createdAt).toLocaleDateString()}</small></p>
                     </div>
                   ))
-                ) : (
+                ):(
                   <p>No notifications found.</p>
                 )}
               </div>
@@ -311,87 +325,81 @@ const JobseekerDashboard = () => {
               <section className="saved-jobs-section">
                 <h2>Saved Jobs</h2>
                 <div>
-                  {savedJobs.length > 0 ? ( // Check if there are saved jobs
-                    savedJobs.map((job) => (
+                  {savedJobs.length > 0 ? (
+                    savedJobs.map((job)=>(
                       <div key={job._id} className="p-4 border rounded mb-4">
                         <h2 className="text-xl font-semibold">{job.title}</h2>
                       </div>
                     ))
-                  ) : (
+                  ):(
                     <p>No Saved Jobs found.</p>
                   )}
                 </div>
               </section>
             );
             case 'chat':
-  return (
-    <div className="p-4 bg-gray-50 min-h-screen">
-      <h3 className="text-lg font-semibold mb-4 text-center text-gray-800">Chat</h3>
+              return (
+                <div className="p-4 bg-gray-50 min-h-screen">
+                  <h3 className="text-lg font-semibold mb-4 text-center text-gray-800">Chat</h3>
+                  <div className="flex flex-col md:flex-row md:space-x-4">
+                    <div className="w-full md:w-1/3 mb-4 bg-white shadow-md rounded-lg p-4">
+                      <div className="active-chats mb-4">
+                        <h4 className="font-medium text-gray-700">Active Chats</h4>
+                        {activeChats.length > 0 ?(
+                          <div className="tabs">
+                            {activeChats.map((chat,index)=>(
+                              <button
+                                key={index}
+                                onClick={() => setSelectedRecruiter(chat.recruiter)}
+                                className={`tab p-2 rounded-md w-full text-left transition duration-200 ease-in-out 
+                                  ${selectedRecruiter && selectedRecruiter._id === chat.recruiter._id 
+                                    ? 'bg-blue-600 text-white' 
+                                    : 'bg-gray-200 hover:bg-gray-300'}`}
+                              >
+                                {chat.recruiter.username}
+                              </button>
+                            ))}
+                          </div>
+                        ):(
+                          <p className="text-gray-600">No active chats. Select a recruiter below to start chatting.</p>
+                        )}
+                      </div>
+                      <div className="recruiter-list mb-4">
+                        <h4 className="font-medium text-gray-700">Select Recruiter to Start a New Chat</h4>
+                        <ul className="mt-2">
+                          {recruiters.map((recruiter)=>(
+                            <li
+                              key={recruiter._id}
+                              onClick={() => handleSelectRecruiter(recruiter)}
+                              className="cursor-pointer hover:bg-gray-200 p-2 rounded-md transition duration-200 ease-in-out"
+                            >
+                              {recruiter.username}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
 
-      <div className="flex flex-col md:flex-row md:space-x-4">
-        {/* Active Chats and Select Recruiter Sections */}
-        <div className="w-full md:w-1/3 mb-4 bg-white shadow-md rounded-lg p-4">
-          {/* Active Chats Tabs */}
-          <div className="active-chats mb-4">
-            <h4 className="font-medium text-gray-700">Active Chats</h4>
-            {activeChats.length > 0 ? (
-              <div className="tabs">
-                {activeChats.map((chat, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setSelectedRecruiter(chat.recruiter)}
-                    className={`tab p-2 rounded-md w-full text-left transition duration-200 ease-in-out 
-                      ${selectedRecruiter && selectedRecruiter._id === chat.recruiter._id 
-                        ? 'bg-blue-600 text-white' 
-                        : 'bg-gray-200 hover:bg-gray-300'}`}
-                  >
-                    {chat.recruiter.username}
-                  </button>
-                ))}
-              </div>
-            ) : (
-              <p className="text-gray-600">No active chats. Select a recruiter below to start chatting.</p>
-            )}
-          </div>
-
-          {/* Recruiter List for New Chats */}
-          <div className="recruiter-list mb-4">
-            <h4 className="font-medium text-gray-700">Select Recruiter to Start a New Chat</h4>
-            <ul className="mt-2">
-              {recruiters.map((recruiter) => (
-                <li
-                  key={recruiter._id}
-                  onClick={() => handleSelectRecruiter(recruiter)}
-                  className="cursor-pointer hover:bg-gray-200 p-2 rounded-md transition duration-200 ease-in-out"
-                >
-                  {recruiter.username}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Chat Window for Selected Recruiter */}
-        <div className="chat-area w-full md:w-2/3 mb-4 bg-white shadow-md rounded-lg p-4">
-          {selectedRecruiter ? (
-            <Chat 
-              room={generateRoomId(user._id, selectedRecruiter._id)} 
-              userId={user._id} 
-              recruiterUsername={selectedRecruiter.username} 
-            />
-          ) : (
-            <p className="mt-4 text-gray-600">Select an active chat or a recruiter to start a conversation.</p>
-          )}
-        </div>
-      </div>
-    </div>
-  );
+                    {/* Chat Window for Selected Recruiter */}
+                    <div className="chat-area w-full md:w-2/3 mb-4 bg-white shadow-md rounded-lg p-4">
+                      {selectedRecruiter ? (
+                        <Chat 
+                          room={generateRoomId(user._id, selectedRecruiter._id)} 
+                          userId={user._id} 
+                          recruiterUsername={selectedRecruiter.username} 
+                        />
+                      ):(
+                        <p className="mt-4 text-gray-600">Select an active chat or a recruiter to start a conversation.</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
       case 'settings':
         return (
           <section className="settings-section">
             <h2>Settings</h2>
             <p>Update your profile, change password, and manage account settings.</p>
-            {/* Add more settings options here */}
           </section>
         );
       default:

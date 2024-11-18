@@ -25,7 +25,7 @@ const jobSchema = new Schema({
   },
   type_of_employment: {
     type: String,
-    enum: ['Remote', 'On-site', 'Hybrid'], // Add more options if needed
+    enum: ['Remote', 'On-site', 'Hybrid'],
   },
   approved: {
     type: Boolean,

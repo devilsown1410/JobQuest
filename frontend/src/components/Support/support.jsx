@@ -1,43 +1,36 @@
 import React, { useState } from 'react';
 import SuccessModal from '../HomePage/SuccessModal';
 
-const Support = () => {
+const Support = ()=>{
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         message: '',
     });
-    const [showModal, setShowModal] = useState(false);
-    const [error, setError] = useState('');
+    const [showModal,setShowModal] = useState(false);
+    const [error,setError] = useState('');
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
+    const handleChange = (e)=>{
+        const { name,value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e)=>{
         e.preventDefault();
         const { name, email, message } = formData;
-
-        // Basic validation
         if (!name || !email || !message) {
             setError('All fields are required.');
             return;
         }
-
-        // Simulate form submission
         console.log('Form submitted:', formData);
         setShowModal(true);
         setError('');
-        setFormData({ name: '', email: '', message: '' }); // Reset form
-
-        // Automatically close the modal after 3 seconds
+        setFormData({ name: '', email: '', message: '' });
         setTimeout(() => {
             setShowModal(false);
         }, 3000);
     };
-
-    return (
+    return(
         <div className="container mx-auto p-6">
             <div className="support-company-area">
                 <div className="support-location-img relative bg-blue-800 p-6 rounded-lg mb-6">

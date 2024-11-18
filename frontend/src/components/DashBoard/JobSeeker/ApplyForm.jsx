@@ -1,37 +1,33 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from '../../../utils/axios'; // Corrected import path
+import axios from '../../../utils/axios';
 
-const ApplyForm = () => {
+const ApplyForm =()=>{
   const { jobId } = useParams();
   const [resume, setResume] = useState(null);
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
-  const handleResumeChange = (e) => {
+  const handleResumeChange =(e)=>{
     setResume(e.target.files[0]);
   };
-
-  const handleMessageChange = (e) => {
+  const handleMessageChange =(e)=>{
     setMessage(e.target.value);
   };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = async(e)=>{
     e.preventDefault();
     const user = JSON.parse(localStorage.getItem('user'));
     const userId = user._id;
-
     const formData = new FormData();
     formData.append('jobId', jobId);
     formData.append('userId', userId);
     formData.append('message', message);
-    if (resume) {
+    if(resume){
       formData.append('resume', resume);
     }
-
-    try {
-      const response = await axios.post('http://localhost:3000/api/user/apply', formData, {
-        headers: {
+    try{
+      const response = await axios.post('http://localhost:3000/api/user/apply',formData,{
+        headers:{
           'Content-Type': 'multipart/form-data',
         },
       });
@@ -42,8 +38,7 @@ const ApplyForm = () => {
       alert('Failed to apply for job');
     }
   };
-
-  return (
+  return(
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-gray-200 p-6 rounded-lg shadow-lg max-w-md w-full">
         <h2 className="text-2xl text-center mb-4 text-gray-800">Apply for Job</h2>

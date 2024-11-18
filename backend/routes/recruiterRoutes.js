@@ -12,11 +12,12 @@ router.put('/', updateRecruiter);
 // Job Routes
 router.post('/jobs', postJob);
 router.get('/jobs', getJobs);
-router.get('/jobs/:userId', getJobByUserId);  // Fixed this route
+router.get('/jobs/:userId', getJobByUserId);
 router.put('/jobs/:jobId', updateJob);
 router.delete('/jobs/:jobId', deleteJob)
+
 // Applicants for a job
-router.get('/jobs/:jobId/applicants', getApplicants);  // Fixed this route
+router.get('/jobs/:jobId/applicants', getApplicants);
 
 // Application Routes
 router.get('/applications', getResponses);

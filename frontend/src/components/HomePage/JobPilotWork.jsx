@@ -2,8 +2,8 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus, faUserEdit, faSearch, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
-function JobPilotWork() {
-  return (
+function JobPilotWork(){
+  return(
     <section className="apply-process-area py-12 bg-gray-100 m-4">
       <div className="container mx-auto text-center">
         <h2 className="text-3xl font-bold mb-8">How JobQuest Works</h2>

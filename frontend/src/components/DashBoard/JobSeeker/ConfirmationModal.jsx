@@ -1,7 +1,7 @@
 import React from 'react';
 
-const ConfirmationModal = ({ onConfirm, onCancel, children }) => {
-    return (
+const ConfirmationModal = ({ onConfirm, onCancel, children })=>{
+    return(
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-white rounded-lg shadow-lg p-5 w-1/3">
                 <h2 className="text-lg font-semibold mb-4">Confirm Action</h2>

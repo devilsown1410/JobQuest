@@ -2,8 +2,8 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
-function ClientTestimonials() {
-  return (
+function ClientTestimonials(){
+  return(
     <section className="testimonial-area py-12 bg-gray-100 m-4">
       <div className="container mx-auto text-center">
         <h2 className="text-3xl font-bold mb-8">Client Testimonials</h2>
