@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTwitter, faLinkedin, faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import axios from '../../utils/axios';
 import { useNavigate } from 'react-router-dom';
 import SuccessModal from './SuccessModal';
@@ -24,7 +22,7 @@ const initialState ={
   password: '',
   username: '',
   email: '',
-  userType: 'jobSeeker', // Default user type
+  userType: 'jobSeeker',
   errors:{},
 };
 
@@ -63,7 +61,7 @@ const LoginRegister = ()=>{
       errors.username = 'Username is required';
     }
 
-    if (!email){
+    if(!email){
       errors.email = 'Email is required';
     } else if(!/\S+@\S+\.\S+/.test(email)){
       errors.email = 'Email address is invalid';

@@ -45,7 +45,7 @@ const EditJob = () => {
   }, [jobId]);
 
   const handleChange = (e)=>{
-    const { name, value } = e.target;
+    const { name,value } = e.target;
     if (name.startsWith('company.')) {
       const companyField = name.split('.')[1];
       setJobDetails((prevDetails) => ({

@@ -69,10 +69,6 @@ export const verifyUser = async(req,res)=>{
   
           Your account has been successfully created, and you are now verified as a user. You can start exploring job opportunities, applying for positions, and connecting with potential employers.
   
-          If you have any questions or need assistance, feel free to reach out to our support team at support@jobquest.com.
-  
-          Welcome to the JobQuest community!
-  
           Best regards,
           The JobQuest Team
       `,
@@ -111,7 +107,7 @@ export const getCompanies =async(req,res)=>{
 export const verifyCompany = async(req,res)=>{
   const{ companyId } = req.params;
   try{
-    await usersCollection.updateOne({ _id: new ObjectId(companyId) }, { $set: { verified: true } });
+    await usersCollection.updateOne({ _id: new ObjectId(companyId) }, { $set: { verified: true} });
     const company = await usersCollection.findOne({ _id: new ObjectId(companyId) });
     await sendEmail({
       to: company.email,
@@ -122,15 +118,6 @@ export const verifyCompany = async(req,res)=>{
           Congratulations! Your company has been successfully verified with JobQuest.
   
           We are thrilled to have you as part of our community. As a verified company, you can now post job openings, connect with potential candidates, and access a range of features designed to help you find the right talent.
-  
-          Here are a few things you can do next:
-          - Log in to your account and start posting job listings.
-          - Explore our resources to help you attract the best candidates.
-          - Reach out to our support team if you have any questions or need assistance.
-  
-          If you have any questions or need further assistance, please do not hesitate to contact us at support@jobquest.com.
-  
-          Thank you for choosing JobQuest. We look forward to supporting your hiring needs!
   
           Best regards,
           The JobQuest Team
@@ -185,16 +172,7 @@ export const approveJob = async (req,res)=>{
   
           We are excited to inform you that your job listing for "${job.title}" has been approved successfully!
   
-          Your job is now live on JobQuest, and potential candidates can start applying. Here are a few things you might want to do next:
-  
-          - **Review Applications**: Keep an eye on the applications you receive and start connecting with potential candidates.
-          - **Promote Your Listing**: Share your job listing on social media to attract more applicants.
-          - **Update Your Listing**: If you need to make any changes or updates, you can do so through your account dashboard.
-  
-          If you have any questions or need assistance, feel free to reach out to our support team at support@jobquest.com.
-  
-          Thank you for choosing JobQuest, and we wish you the best of luck in finding the perfect candidate!
-  
+          Your job is now live on JobQuest, and potential candidates can start applying.
           Best regards,
           The JobQuest Team
       `,
@@ -220,11 +198,7 @@ export const rejectJob = async(req,res)=>{
   
           We appreciate your interest in posting the job listing for "${job.title}" on JobQuest. 
   
-          After careful consideration, we regret to inform you that your job listing has not been approved at this time. This decision is based on our current guidelines and standards for job postings.
-  
-          We encourage you to review the job description and requirements to ensure they align with our platform's policies. If you would like to make adjustments, feel free to resubmit your listing for review.
-  
-          Thank you for your understanding, and we wish you the best of luck in your future hiring endeavors. If you have any questions or need assistance, please don’t hesitate to reach out to our support team at support@jobquest.com.
+          After careful consideration, we regret to inform you that your job listing has not been approved at this time.
   
           Best regards,
           The JobQuest Team

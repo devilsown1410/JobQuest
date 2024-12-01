@@ -46,8 +46,8 @@ function Header(){
         <div className="md:hidden bg-white shadow-md p-4">
           <a href="/" className="block text-gray-600 hover:text-blue-600 transition duration-300">Home</a>
           <a href="/find-jobs" className="block text-gray-600 hover:text-blue-600 transition duration-300">Find Jobs</a>
-          <a href="/" className="block text-gray-600 hover:text-blue-600 transition duration-300">Companies</a>
-          <a href="/" className="block text-gray-600 hover:text-blue-600 transition duration-300">Support</a>
+          <a href="/companies" className="block text-gray-600 hover:text-blue-600 transition duration-300">Companies</a>
+          <a href="/support" className="block text-gray-600 hover:text-blue-600 transition duration-300">Support</a>
         </div>
       )}
     </header>

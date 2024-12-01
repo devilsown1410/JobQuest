@@ -6,10 +6,10 @@ export const register = async(req,res)=>{
   const{ username, email, password, userType } = req.body;
   try{
     const existingUser  = await usersCollection.findOne({ email });
-    if(existingUser ){
+    if(existingUser){
       return res.status(400).json({ message: 'User  already exists' });
     }
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password,10);
     const newUser  = { username, email, password: hashedPassword, userType };
     await usersCollection.insertOne(newUser);
     const token = jwt.sign({ email },process.env.JWT_SECRET,{ expiresIn: '1h' });

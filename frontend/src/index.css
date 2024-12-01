@@ -121,7 +121,6 @@ body {
 
 .stylish-button1:hover::before {
   transform: scaleX(1);
-
 }
 
 .stylish-button1:hover {

@@ -17,7 +17,7 @@ export const getUser = async (req,res)=>{
 };
 
 export const updateUser = async (req,res)=>{
-  const{ email, username, phone, address, bio, education, experience, skills } = req.body;
+  const{ email,username,phone,address,bio,education,experience,skills } = req.body;
   try{
     const user = await usersCollection.findOne({ email });
     if(!user){
@@ -28,14 +28,15 @@ export const updateUser = async (req,res)=>{
       { $set: { username, phone, address, bio, education, experience, skills } },
       { returnDocument: 'after' }
     );
-    res.status(200).json({ user: updatedUser .value });
+    res.status(200).json({ user: updatedUser.value });
   }catch (error){
     console.error('Error updating user profile:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
 export const applyForJob = async(req, res)=>{
-  const { jobId, userId, message } = req.body;
+  const { jobId,userId,message } = req.body;
   const resumeFile = req.file;
   try{
     const job = await jobsCollection.findOne({ _id: new ObjectId(jobId) });
@@ -63,7 +64,7 @@ export const applyForJob = async(req, res)=>{
               }
             }
           );
-          uploadStream.end(resumeFile.buffer); // End the stream with the file buffer
+          uploadStream.end(resumeFile.buffer);
         });
       }catch(uploadError){
         console.error('Error during resume upload:', uploadError);

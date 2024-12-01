@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserMd, faTooth, faLaptopCode, faDatabase, faMoneyCheckAlt, faNetworkWired, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faUserMd, faLaptopCode, faDatabase, faMoneyCheckAlt, faNetworkWired, faSearch } from '@fortawesome/free-solid-svg-icons';
 
 function PopularVacancies(){
   return(

@@ -20,7 +20,7 @@ export const deleteApplication=async(req,res)=>{
       if(!application){
         return res.status(404).json({ error: 'Application not found' });
       }
-      await responsesCollection.deleteOne({ _id: new ObjectId(applicationId) }); // Ensure ObjectId is used here
+      await responsesCollection.deleteOne({ _id: new ObjectId(applicationId) });
       res.status(200).json({ message: 'Response Deleted Successfully' });
     }catch(error){
       console.error('Error deleting response:', error);
