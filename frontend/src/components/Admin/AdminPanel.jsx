@@ -3,7 +3,6 @@ import axios from '../../utils/axios';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 const AdminPanel =()=>{
   const [activeSection, setActiveSection] = useState('users');
   const [users, setUsers] = useState([]);
@@ -11,7 +10,6 @@ const AdminPanel =()=>{
   const [jobs, setJobs] = useState([]);
   const navigate = useNavigate();
   const [confirmationModal, setConfirmationModal] = useState({ isOpen: false, action: null, id: null });
-
   useEffect(() => {
     const token = localStorage.getItem('adminToken');
     if (!token) {
@@ -22,7 +20,6 @@ const AdminPanel =()=>{
       fetchJobs();
     }
   }, [navigate]);
-
   const fetchUsers = async ()=>{
     try{
       const response = await axios.get('http://localhost:3000/api/admin/users', {
@@ -33,7 +30,6 @@ const AdminPanel =()=>{
       console.error('Error fetching users:', error);
     }
   };
-
   const fetchCompanies = async ()=>{
     try{
       const response = await axios.get('http://localhost:3000/api/admin/companies', {
@@ -44,7 +40,6 @@ const AdminPanel =()=>{
       console.error('Error fetching companies:', error);
     }
   };
-
   const fetchJobs = async()=>{
     try{
       const response = await axios.get('http://localhost:3000/api/admin/jobs',{
@@ -55,10 +50,8 @@ const AdminPanel =()=>{
       console.error('Error fetching jobs:', error);
     }
   };
-
   const handleConfirmAction = async ()=>{
     const { action, id } = confirmationModal;
-
     try{
       let response;
       switch(action){
@@ -121,11 +114,9 @@ const AdminPanel =()=>{
       setConfirmationModal({ isOpen: false, action: null, id: null });
     }
   };
-
   const openConfirmationModal = (action, id, block = null)=>{
     setConfirmationModal({ isOpen: true, action, id, block });
   };
-
   const renderSection = ()=>{
     switch (activeSection){
       case 'users':
@@ -211,7 +202,6 @@ const AdminPanel =()=>{
         return null;
     }
   };
-
   return (
     <div className="flex">
       <div className="w-64 bg-gray-800 text-white p-5">
@@ -265,5 +255,4 @@ const AdminPanel =()=>{
     </div>
   );
 };
-
 export default AdminPanel;

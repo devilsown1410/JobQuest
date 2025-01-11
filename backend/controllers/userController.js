@@ -71,7 +71,6 @@ export const applyForJob = async(req, res)=>{
         return res.status(500).json({ message: 'Error uploading resume' });
       }
     }
-
     const response = {
       jobId,
       userId,
@@ -83,7 +82,6 @@ export const applyForJob = async(req, res)=>{
       appliedAt: new Date(),
       status: 'Applied',
     };
-
     await responsesCollection.insertOne(response);
     await usersCollection.updateOne(
       { _id: new ObjectId(userId) },

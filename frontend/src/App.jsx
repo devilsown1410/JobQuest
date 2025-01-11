@@ -89,11 +89,9 @@ function App() {
             <Footer />
             </>
             }/>
-            <Route path='/loader' element={<Spinner />} />
         </Routes>
         </Router>
         </LoadingProvider>
-   
   );
 }
 export default App;
