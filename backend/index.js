@@ -38,7 +38,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api/recruiter', recruiterRoutes);
 app.use('/api/admin', adminRoutes);
-app.use('api/companies', companyRoutes);
+app.use('/api/companies', companyRoutes);
 
 const rooms = {};
 
