@@ -46,6 +46,46 @@
         text-align: center;
         padding: 10px;
     }
+
+    .testimonial-caption {
+        padding: 10px;
+    }
+
+    .testimonial-top-cap {
+        text-align: center;
+    }
+
+    .testimonial-top-cap p {
+        margin: 5px 0;
+    }
+
+    /* Additional homepage sections */
+    .hero-section {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .hero-section h1 {
+        font-size: 24px;
+    }
+
+    .hero-section p {
+        font-size: 16px;
+    }
+
+    .cta-button {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .features-section {
+        padding: 20px;
+    }
+
+    .feature-item {
+        margin-bottom: 20px;
+    }
 }
 
 /* Tablet styles */
@@ -92,6 +132,46 @@
     footer {
         text-align: center;
         padding: 20px;
+    }
+
+    .testimonial-caption {
+        padding: 15px;
+    }
+
+    .testimonial-top-cap {
+        text-align: center;
+    }
+
+    .testimonial-top-cap p {
+        margin: 10px 0;
+    }
+
+    /* Additional homepage sections */
+    .hero-section {
+        padding: 40px;
+        text-align: center;
+    }
+
+    .hero-section h1 {
+        font-size: 32px;
+    }
+
+    .hero-section p {
+        font-size: 18px;
+    }
+
+    .cta-button {
+        width: auto;
+        padding: 15px;
+        font-size: 18px;
+    }
+
+    .features-section {
+        padding: 40px;
+    }
+
+    .feature-item {
+        margin-bottom: 30px;
     }
 }
 
