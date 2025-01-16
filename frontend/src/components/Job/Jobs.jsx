@@ -32,7 +32,7 @@ const Jobs = () => {
     const fetchJobs = async ()=>{
       setLoading(true);
       try {
-        const response = await axios.get('http://localhost:3000/api/user/jobs', {
+        const response = await axios.get('https://jobquest-qtqi.onrender.com/api/user/jobs', {
           params: {
             page: currentPage,
             limit: 10,
@@ -111,7 +111,7 @@ const Jobs = () => {
     }
 
     try{
-      const response = await axios.post('http://localhost:3000/api/user/apply', formData, {
+      const response = await axios.post('https://jobquest-qtqi.onrender.com/api/user/apply', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -137,7 +137,7 @@ const Jobs = () => {
     }
     const userId = user._id;
     try{
-      const response = await axios.post('http://localhost:3000/api/user/save ', {
+      const response = await axios.post('https://jobquest-qtqi.onrender.com/api/user/save ', {
         jobId,
         userId,
       });
