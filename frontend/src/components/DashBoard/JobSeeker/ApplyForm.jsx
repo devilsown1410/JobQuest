@@ -26,7 +26,7 @@ const ApplyForm =()=>{
       formData.append('resume', resume);
     }
     try{
-      const response = await axios.post('http://localhost:3000/api/user/apply',formData,{
+      const response = await axios.post('https://jobquest-qtqi.onrender.com/api/user/apply',formData,{
         headers:{
           'Content-Type': 'multipart/form-data',
         },

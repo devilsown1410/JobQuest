@@ -27,7 +27,7 @@ const EditJob = () => {
     const fetchJobDetails = async ()=>{
       setLoading(true);
       try{
-        const response = await fetch(`http://localhost:3000/api/user/jobs/${jobId}`);
+        const response = await fetch(`https://jobquest-qtqi.onrender.com/api/user/jobs/${jobId}`);
         if(!response.ok){
           throw new Error(`Error fetching job details: ${response.statusText}`);
         }
@@ -69,7 +69,7 @@ const EditJob = () => {
     setIsSubmitting(true);
     setError(null);
     try{
-      const response = await fetch(`http://localhost:3000/api/user/jobs/editjob/${jobId}`, {
+      const response = await fetch(`https://jobquest-qtqi.onrender.com/api/user/jobs/editjob/${jobId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

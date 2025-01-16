@@ -84,7 +84,7 @@ const LoginRegister = ()=>{
     }
     const { username, email, password, userType } = state;
     try{
-      const response = await axios.post('http://localhost:3000/api/auth/register',{ username, email, password, userType});
+      const response = await axios.post('https://jobquest-qtqi.onrender.com/api/auth/register',{ username, email, password, userType});
       const { token } = response.data;
       localStorage.setItem('token', token);
       localStorage.setItem('email', email);
@@ -107,7 +107,7 @@ const LoginRegister = ()=>{
     event.preventDefault();
     const { email, password, userType } = state;
     try{
-      const endpoint = userType === 'Admin' ? 'http://localhost:3000/api/admin/login' : 'http://localhost:3000/api/auth/login';
+      const endpoint = userType === 'Admin' ? 'https://jobquest-qtqi.onrender.com/api/admin/login' : 'https://jobquest-qtqi.onrender.com/api/auth/login';
       const response = await axios.post(endpoint,{ email, password });
       const { token, user } = response.data;
       localStorage.setItem(userType === 'Admin' ? 'adminToken' : 'token', token);

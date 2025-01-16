@@ -8,7 +8,7 @@ const ApplicationTracking = ()=>{
   useEffect(()=>{
     const fetchApplications = async()=>{
       try{
-        const response = await axios.get(`http://localhost:3000/api/user/applications?userId=${user._id}`);
+        const response = await axios.get(`https://jobquest-qtqi.onrender.com/api/user/applications?userId=${user._id}`);
         setApplications(response.data.responses);
       }catch(error){
         console.error('Error fetching applications:', error);

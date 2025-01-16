@@ -22,7 +22,7 @@ const AdminPanel =()=>{
   }, [navigate]);
   const fetchUsers = async ()=>{
     try{
-      const response = await axios.get('http://localhost:3000/api/admin/users', {
+      const response = await axios.get('https://jobquest-qtqi.onrender.com/api/admin/users', {
         headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` },
       });
       setUsers(response.data);
@@ -32,7 +32,7 @@ const AdminPanel =()=>{
   };
   const fetchCompanies = async ()=>{
     try{
-      const response = await axios.get('http://localhost:3000/api/admin/companies', {
+      const response = await axios.get('https://jobquest-qtqi.onrender.com/api/admin/companies', {
         headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` },
       });
       setCompanies(response.data);
@@ -42,7 +42,7 @@ const AdminPanel =()=>{
   };
   const fetchJobs = async()=>{
     try{
-      const response = await axios.get('http://localhost:3000/api/admin/jobs',{
+      const response = await axios.get('https://jobquest-qtqi.onrender.com/api/admin/jobs',{
         headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` },
       });
       setJobs(response.data);
@@ -56,49 +56,49 @@ const AdminPanel =()=>{
       let response;
       switch(action){
         case 'verifyUser ':
-          response = await axios.put(`http://localhost:3000/api/admin/users/${id}/verify`, {},{
+          response = await axios.put(`https://jobquest-qtqi.onrender.com/api/admin/users/${id}/verify`, {},{
             headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` },
           });
           toast.success('User  verified successfully');
           fetchUsers();
           break;
         case 'blockUser ':
-          response = await axios.put(`http://localhost:3000/api/admin/users/${id}/block`,{ block: confirmationModal.block }, {
+          response = await axios.put(`https://jobquest-qtqi.onrender.com/api/admin/users/${id}/block`,{ block: confirmationModal.block }, {
             headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` },
           });
           toast.success(`User  ${confirmationModal.block ? 'blocked' : 'unblocked'} successfully`);
           fetchUsers();
           break;
         case 'verifyCompany':
-          response = await axios.put(`http://localhost:3000/api/admin/companies/${id}/verify`, {}, {
+          response = await axios.put(`https://jobquest-qtqi.onrender.com/api/admin/companies/${id}/verify`, {}, {
             headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` },
           });
           toast.success('Company verified successfully');
           fetchCompanies();
           break;
         case 'rejectCompany':
-          response = await axios.put(`http://localhost:3000/api/admin/companies/${id}/reject`, {}, {
+          response = await axios.put(`https://jobquest-qtqi.onrender.com/api/admin/companies/${id}/reject`, {}, {
             headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` },
           });
           toast.success('Company rejected successfully');
           fetchCompanies();
           break;
         case 'approveJob':
-          response = await axios.put(`http://localhost:3000/api/admin/jobs/${id}/approve`, {}, {
+          response = await axios.put(`https://jobquest-qtqi.onrender.com/api/admin/jobs/${id}/approve`, {}, {
             headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` },
           });
           toast.success('Job approved successfully');
           fetchJobs();
           break;
         case 'rejectJob':
-          response = await axios.put(`http://localhost:3000/api/admin/jobs/${id}/reject`, {}, {
+          response = await axios.put(`https://jobquest-qtqi.onrender.com/api/admin/jobs/${id}/reject`, {}, {
             headers: { Authorization: `Bearer ${localStorage.getItem(' adminToken')}` },
           });
           toast.success('Job rejected successfully');
           fetchJobs();
           break;
         case 'deleteJob':
-          response = await axios.delete(`http://localhost:3000/api/admin/jobs/${id}`, {
+          response = await axios.delete(`https://jobquest-qtqi.onrender.com/api/admin/jobs/${id}`, {
             headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` },
           });
           toast.success('Job deleted successfully');

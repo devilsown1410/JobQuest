@@ -35,7 +35,7 @@ const JobseekerDashboard = ()=>{
       try {
         const token = localStorage.getItem('token');
         const email = localStorage.getItem('email');
-        const response = await axios.post('http://localhost:3000/api/user', { email }, {
+        const response = await axios.post('https://jobquest-qtqi.onrender.com/api/user', { email }, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setUser(response.data.user);
@@ -64,7 +64,7 @@ const JobseekerDashboard = ()=>{
       const fetchApplications = async ()=>{
         setLoading(true);
         try{
-          const response = await axios.get(`http://localhost:3000/api/user/applications?userId=${user._id}`);
+          const response = await axios.get(`https://jobquest-qtqi.onrender.com/api/user/applications?userId=${user._id}`);
           setApplications(response.data);
         }catch(error){
           console.error('Error fetching applications:', error);
@@ -77,7 +77,7 @@ const JobseekerDashboard = ()=>{
       const fetchNotifications = async ()=>{
         setLoading(true);
         try{
-          const response = await axios.get(`http://localhost:3000/api/user/notifications?userId=${user._id}`);
+          const response = await axios.get(`https://jobquest-qtqi.onrender.com/api/user/notifications?userId=${user._id}`);
           console.log('Notifications fetched:', response.data);
           const unreadNotifications = response.data.filter(notification => !notification.read).slice(0, 10); //Only 10 at a time
           setNotifications(unreadNotifications);
@@ -92,7 +92,7 @@ const JobseekerDashboard = ()=>{
       const fetchSavedJobs = async ()=>{
         setLoading(true);
         try{
-          const response = await axios.get(`http://localhost:3000/api/user/jobs/saved?userId=${user._id}`);
+          const response = await axios.get(`https://jobquest-qtqi.onrender.com/api/user/jobs/saved?userId=${user._id}`);
           setSavedJobs(response.data.savedJobs);
         }catch(error){
           console.error('Error fetching notifications:', error);
@@ -112,7 +112,7 @@ const JobseekerDashboard = ()=>{
     const fetchRecruiters = async ()=>{
       setLoading(true);
       try{
-        const response = await axios.get('http://localhost:3000/api/user/recruiters');
+        const response = await axios.get('https://jobquest-qtqi.onrender.com/api/user/recruiters');
         setRecruiters(response.data);
       }catch(error){
         console.error('Error fetching recruiters:', error);
@@ -144,7 +144,7 @@ const JobseekerDashboard = ()=>{
     setLoading(true);
     try{
       const token = localStorage.getItem('token');
-      const response = await axios.put('http://localhost:3000/api/user', profileDetails, {
+      const response = await axios.put('https://jobquest-qtqi.onrender.com/api/user', profileDetails, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setUser(response.data.user);
@@ -162,7 +162,7 @@ const JobseekerDashboard = ()=>{
   const markNotificationsAsRead = async()=>{
     try{
       const token = localStorage.getItem('token');
-      await axios.put('http://localhost:3000/api/user/notifications/read',{ userId: user._id }, {
+      await axios.put('https://jobquest-qtqi.onrender.com/api/user/notifications/read',{ userId: user._id }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setUnreadCount(0);
