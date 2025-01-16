@@ -17,7 +17,7 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: 'https://job-quest-one.vercel.app/',
+    origin: 'https://job-quest-one.vercel.app',
     methods: ['GET', 'POST']
   }
 });
