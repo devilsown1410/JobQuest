@@ -423,7 +423,7 @@ const JobseekerDashboard = ()=>{
             localStorage.removeItem('token');
             localStorage.removeItem('email');
             localStorage.removeItem('user');
-            window.location.href = '/login';
+            navigate('/login');
           }} className="cursor-pointer">Logout</li>
         </ul>
       </div>
