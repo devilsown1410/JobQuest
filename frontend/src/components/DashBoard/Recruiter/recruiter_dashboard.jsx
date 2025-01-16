@@ -32,7 +32,7 @@ const RecruiterDashboard = () => {
       try{
         const token = localStorage.getItem('token');
         const email = localStorage.getItem('email');
-        const response = await axios.post('http://localhost:3000/api/recruiter', { email }, {
+        const response = await axios.post('https://jobquest-qtqi.onrender.com/api/recruiter', { email }, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setRecruiter(response.data.recruiter);
@@ -57,7 +57,7 @@ const RecruiterDashboard = () => {
   useEffect(()=>{
     const fetchJobSeekers = async ()=>{
       try {
-        const response = await axios.get('http://localhost:3000/api/user/jobSeekers');
+        const response = await axios.get('https://jobquest-qtqi.onrender.com/api/user/jobSeekers');
         setJobSeekers(response.data);
       } catch (error) {
         console.error('Error fetching job seekers:', error);
@@ -92,7 +92,7 @@ const RecruiterDashboard = () => {
     e.preventDefault();
     try{
       const token = localStorage.getItem('token');
-      const response = await axios.put('http://localhost:3000/api/recruiter', profileDetails, {
+      const response = await axios.put('https://jobquest-qtqi.onrender.com/api/recruiter', profileDetails, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setRecruiter(response.data.recruiter);
@@ -110,7 +110,7 @@ const RecruiterDashboard = () => {
   const fetchResponses = async ()=>{
     setLoading(true);
     try{
-      const response = await axios.get(`http://localhost:3000/api/recruiter/applications?userId=${userId}`);
+      const response = await axios.get(`https://jobquest-qtqi.onrender.com/api/recruiter/applications?userId=${userId}`);
       setApplications(response.data.responses);
     }catch(error){
       console.error('Error fetching responses:', error);
@@ -121,9 +121,9 @@ const RecruiterDashboard = () => {
 
   const handleStatusChange = async(applicationId,status)=>{
     try{
-      await axios.put(`http://localhost:3000/api/recruiter/applications/${applicationId}/status`, { status });
+      await axios.put(`https://jobquest-qtqi.onrender.com/api/recruiter/applications/${applicationId}/status`, { status });
       if(status === 'Deleted'){
-        await axios.delete(`http://localhost:3000/api/recruiter/applications/${applicationId}`);
+        await axios.delete(`https://jobquest-qtqi.onrender.com/api/recruiter/applications/${applicationId}`);
         setApplications((prevApplications) =>
           prevApplications.filter((app) => app._id !== applicationId)
         );
@@ -143,12 +143,12 @@ const RecruiterDashboard = () => {
     setLoading(true);
     try{
       const userId1 = JSON.parse(localStorage.getItem('user'))._id;
-      const response = await axios.get(`http://localhost:3000/api/recruiter/jobs/${userId1}`);
+      const response = await axios.get(`https://jobquest-qtqi.onrender.com/api/recruiter/jobs/${userId1}`);
       const fetchedJobs = response.data || [];
       const jobsWithApplicants = await Promise.all(
         fetchedJobs.map(async (job)=>{
           try{
-            const applicantsResponse = await axios.get(`http://localhost:3000/api/recruiter/jobs/${job._id}/applicants`);
+            const applicantsResponse = await axios.get(`https://jobquest-qtqi.onrender.com/api/recruiter/jobs/${job._id}/applicants`);
             return{ 
               ...job, 
               applicantCount: applicantsResponse.data.applicants.length || 0
@@ -169,7 +169,7 @@ const RecruiterDashboard = () => {
   
   const handleDownload =(resumeUrl)=>{
     const encodedUrl = encodeURIComponent(resumeUrl);
-    window.open(`http://localhost:3000/api/recruiter/applications/download/${encodedUrl}`, '_blank');
+    window.open(`https://jobquest-qtqi.onrender.com/api/recruiter/applications/download/${encodedUrl}`, '_blank');
   };
   
   const handleEditJob =(jobId)=>{
@@ -178,7 +178,7 @@ const RecruiterDashboard = () => {
   
   const handleDeleteJob = async(jobId)=>{
     try{
-      await axios.delete(`http://localhost:3000/api/recruiter/jobs/${jobId}`);
+      await axios.delete(`https://jobquest-qtqi.onrender.com/api/recruiter/jobs/${jobId}`);
       setJobs((prevJobs) => prevJobs.filter((job) => job._id !== jobId));
     }catch(error){
       console.error('Error deleting job:', error);
