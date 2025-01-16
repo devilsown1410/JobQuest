@@ -59,9 +59,7 @@ function App() {
             </RequireAuth>
             } />
             <Route path="/postJob" element={
-            <RequireAuth>
-              <JobPost />
-            </RequireAuth>
+              <LoginRegister />
             } />
            <Route path="/apply/:jobId" element={<ApplyForm />} />
           <Route path="/applications" element={<ApplicationTracking />} />
