@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Footer(){
+  const navigate=useNavigate();
   return(
     <footer className="bg-gray-800 py-4 text-gray-300">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -18,13 +20,13 @@ function Footer(){
           <h3 className="text-xl font-bold text-white mb-4">Quick Links</h3>
           <ul>
             <li className="mb-2">
-              <a href="/find-jobs" className="hover:underline">Find Jobs</a>
+              <a onClick={()=> navigate('/find-jobs')} className="hover:underline">Find Jobs</a>
             </li>
             <li className="mb-2">
-              <a href="/companies" className="hover:underline">Companies</a>
+              <a onClick={()=> navigate('/companies')} className="hover:underline">Companies</a>
             </li>
             <li className="mb-2">
-              <a href="/support" className="hover:underline">Support</a>
+              <a onClick={()=> navigate("/support")} className="hover:underline">Support</a>
             </li>
           </ul>
         </div>

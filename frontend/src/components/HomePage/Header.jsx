@@ -16,10 +16,10 @@ function Header(){
           <img src={JobQuest2} alt="Logo" className='h-auto max-h-[70px] w-auto max-w-full rounded-full object-contain shadow-md transition duration-300 hover:shadow-xl cursor-pointer'/>
         </div>
         <div className="md:flex space-x-6">
-          <a href="/" className="text-gray-600 hover:text-blue-600 transition duration-300">Home</a>
+          <a onClick={()=> navigate('/')} className="text-gray-600 hover:text-blue-600 transition duration-300">Home</a>
           <a onClick={handleNavigate} className="text-gray-600 hover:text-blue-600 transition duration-300">Find Jobs</a>
-          <a href="/companies" className="text-gray-600 hover:text-blue-600 transition duration-300">Companies</a>
-          <a href="/support" className="text-gray-600 hover:text-blue-600 transition duration-300">Support</a>
+          <a onClick={()=> navigate('/companies')} className="text-gray-600 hover:text-blue-600 transition duration-300">Companies</a>
+          <a onClick={()=> navigate("/support")} className="text-gray-600 hover:text-blue-600 transition duration-300">Support</a>
         </div>
         <div className="space-x-4">
         <button
