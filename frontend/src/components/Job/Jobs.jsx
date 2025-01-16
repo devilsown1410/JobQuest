@@ -10,6 +10,7 @@ import Footer from '../HomePage/Footer';
 import Spinner from '../Loader/loader';
 
 const Jobs = () => {
+  console.log("yaha to aa rha")
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,7 +33,7 @@ const Jobs = () => {
     const fetchJobs = async ()=>{
       setLoading(true);
       try {
-        const response = await axios.get('http://localhost:3000/api/user/jobs', {
+        const response = await axios.get('https://jobquest-qtqi.onrender.com/api/user/jobs', {
           params: {
             page: currentPage,
             limit: 10,

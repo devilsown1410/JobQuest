@@ -5,6 +5,9 @@ import JobQuest2 from '../../images/JobQuest2.png';
 function Header(){
   const navigate = useNavigate();
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const handleNavigate = () => {
+    navigate('/find-jobs');
+  };
 
   return(
     <header className="bg-white shadow-md p-2">
@@ -14,7 +17,7 @@ function Header(){
         </div>
         <div className="md:flex space-x-6">
           <a href="/" className="text-gray-600 hover:text-blue-600 transition duration-300">Home</a>
-          <a href="/find-jobs" className="text-gray-600 hover:text-blue-600 transition duration-300">Find Jobs</a>
+          <a onClick={handleNavigate} className="text-gray-600 hover:text-blue-600 transition duration-300">Find Jobs</a>
           <a href="/companies" className="text-gray-600 hover:text-blue-600 transition duration-300">Companies</a>
           <a href="/support" className="text-gray-600 hover:text-blue-600 transition duration-300">Support</a>
         </div>
